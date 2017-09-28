@@ -1,5 +1,6 @@
 package sortings
 
+import "fmt";
 
 func HeapSort(list []int) {
 	var size int;
@@ -45,4 +46,9 @@ func max_heapify(list []int, pos int, size int) {
 		list[largest] = temp;
 		max_heapify(list, largest, size);
 	}
+}
+
+func TestHeapSort(list []int) {
+	HeapSort(list);
+	fmt.Println("Heap Sort", list);
 }

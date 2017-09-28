@@ -1,5 +1,7 @@
 package sortings
 
+import "fmt";
+
 func QuickSort(list []int) {
 	quicksort(list, 0, len(list)-1);
 }
@@ -27,4 +29,9 @@ func partition(list []int, left int, right int) int {
 	list[right] = list[i+1];
 	list[i+1] = pivot_val;
 	return i+1;
+}
+
+func TestQuickSort(list []int) {
+	QuickSort(list);
+	fmt.Println("Quick Sort", list);
 }

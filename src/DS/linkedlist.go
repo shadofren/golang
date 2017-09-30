@@ -8,36 +8,41 @@ type Node struct {
 	Next *Node;
 }
 
-func (sentinel *Node) InsertFront(node *Node) {
-	node.Prev = sentinel;
-	node.Next = sentinel.Next;
-	sentinel.Next.Prev = node;
-	sentinel.Next = node;
+type LinkedList struct {
+	Sentinel *Node;
 }
 
-func (sentinel *Node) InsertBack(node *Node) {
-	node.Next = sentinel;
-	node.Prev = sentinel.Prev;
-	sentinel.Prev.Next = node;
-	sentinel.Prev = node;
+func (list *LinkedList) InsertFront(node *Node) {
+	node.Prev = list.Sentinel;
+	node.Next = list.Sentinel.Next;
+	list.Sentinel.Next.Prev = node;
+	list.Sentinel.Next = node;
 }
 
-func (sentinel *Node) Search(val int) *Node {
-	node := sentinel.Next;
-	for node != sentinel && node.Val != val {
+func (list *LinkedList) InsertBack(node *Node) {
+	node.Next = list.Sentinel;
+	node.Prev = list.Sentinel.Prev;
+	list.Sentinel.Prev.Next = node;
+	list.Sentinel.Prev = node;
+}
+
+func (list *LinkedList) Search(val int) *Node {
+	node := list.Sentinel.Next;
+	for node != list.Sentinel && node.Val != val {
 		node = node.Next;
 	}
 	return node;
 }
 
-func (sentinel *Node) Delete(node *Node) {
+func (list *LinkedList) Delete(val int) {
+	node := list.Search(val);
 	node.Next.Prev = node.Prev;
 	node.Prev.Next = node.Next;
 }
 
-func (sentinel *Node) Print() {
-	node := sentinel.Next;
-	for node != sentinel {
+func (list *LinkedList) Print() {
+	node := list.Sentinel.Next;
+	for node != list.Sentinel {
 		fmt.Print(node.Val, " ");
 		node = node.Next;
 	}
@@ -45,29 +50,27 @@ func (sentinel *Node) Print() {
 }
 
 func TestLinkedList() {
-	sentinel := Node{-1, nil, nil};
-	sentinel.Next = &sentinel;
-	sentinel.Prev = &sentinel;
+	list := LinkedList{&(Node{-1, nil, nil})}
+	list.Sentinel.Next = list.Sentinel;
+	list.Sentinel.Prev = list.Sentinel;
 
 	// Test InsertFront
-	var node *Node;
 	for i := 1; i <= 10; i++ {
 		newNode := Node{i, nil, nil};
-		node = &newNode;
-		(&sentinel).InsertFront(&newNode);
+		(&list).InsertFront(&newNode);
 	}
-	(&sentinel).Print();
+	(&list).Print();
 
 	// Test Delete (Delete the last node)
-	(&sentinel).Delete(node.Next.Next);
-	(&sentinel).Delete(node);
-	(&sentinel).Print();
+	(&list).Delete(8);
+	(&list).Delete(7);
+	(&list).Print();
 
 	// Test InsertBack
-	(&sentinel).InsertBack(&(Node{11, nil, nil}));
-	(&sentinel).Print();
+	(&list).InsertBack(&(Node{11, nil, nil}));
+	(&list).Print();
 	
 	// Test Search
-	fmt.Println("search 4", (&sentinel).Search(4));
-	fmt.Println("search 8", (&sentinel).Search(8));
+	fmt.Println("search 4", (&list).Search(4));
+	fmt.Println("search 8", (&list).Search(8));
 }

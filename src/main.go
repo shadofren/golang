@@ -3,7 +3,7 @@ package main
 import (
 	// Local package import
 	// "./sortings" 
-	// "./DS"
+	"./DS"
 	// "./others"
 	// "./search"
 )
@@ -13,7 +13,7 @@ func main() {
 	// sortings.TestHeapSort(list[:]);
 	// sortings.TestQuickSort(list[:]);
 	// sortings.TestMergeSort(list[:]);
-	// DS.TestLinkedList();
+	DS.TestLinkedList();
 	// DS.TestStack();
 	// DS.TestQueue();
 	// others.TestPermutation();

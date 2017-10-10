@@ -49,6 +49,23 @@ func (list *LinkedList) Print() {
 	fmt.Println();
 }
 
+// Reverse double linked list
+func (list *LinkedList) Reverse() {
+	curr := list.Sentinel;
+	// No node
+	if (curr.Next == curr) {
+		return;
+	}
+	var next *Node;
+	for next != list.Sentinel {
+		next = curr.Next;
+		curr.Next = curr.Prev;
+		curr.Prev = next;
+		curr = next;
+	}
+	list.Print()
+}
+
 func TestLinkedList() {
 	list := LinkedList{&(Node{-1, nil, nil})}
 	list.Sentinel.Next = list.Sentinel;
@@ -73,4 +90,10 @@ func TestLinkedList() {
 	// Test Search
 	fmt.Println("search 4", (&list).Search(4));
 	fmt.Println("search 8", (&list).Search(8));
+
+	// Test Reverse 
+	(&list).Reverse();
+	(&list).Print();
+	
+	// Test Reverse Recursive
 }
